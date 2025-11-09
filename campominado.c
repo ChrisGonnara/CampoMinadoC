@@ -33,8 +33,8 @@ int main() {
             linha < 0 || linha >= LINHAS ||
             coluna < 0 || coluna >= COLUNAS) {
             printf("Entrada inválida.\n");
-            int c;
-            while ((c = getchar()) != '\n' && c != EOF);
+            char buffer[100];
+            fgets(buffer, sizeof(buffer), stdin);  // Limpa o restante da linha no buffer
             continue;
         }
 
@@ -92,10 +92,6 @@ void sortear_bombas() {
 }
 
 void calcular_vizinhos() {
-    /*
-    deltaLinha e deltaColuna variam -1, 0, 1 para acessar as células vizinhas (adjacentes e diagonais).
-    linhaVizinha e colunaVizinha indicam as coordenadas da célula vizinha.
-    */
     for (int i = 0; i < LINHAS; i++) {
         for (int j = 0; j < COLUNAS; j++) {
             int total = 0;
