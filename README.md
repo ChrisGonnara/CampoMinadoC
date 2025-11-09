@@ -1,5 +1,5 @@
-Chistiano Gonçalves Araujo,
+Chistiano Gonçalves Araujo, -
 
-Joao Francisco,
+Joao Francisco, -
 
-Gabriel Felicio
+Gabriel Felicio, -
