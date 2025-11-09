@@ -17,7 +17,8 @@ int campo_aberto[LINHAS][COLUNAS];
 int campo_vizinhos[LINHAS][COLUNAS];
 
 int main() {
-    int aberto = 0, total = LINHAS * COLUNAS - BOMBAS;
+    int aberto = 0;
+    int total = LINHAS * COLUNAS - BOMBAS;
     int linha, coluna;
 
     srand(time(NULL));
@@ -28,29 +29,37 @@ int main() {
     while (1) {
         imprimir(0);
         printf("\nDigite linha e coluna (ex: 5 10): ");
-        if (scanf("%d%d", &linha, &coluna) != 2 || linha < 0 || linha >= LINHAS || coluna < 0 || coluna >= COLUNAS) {
+        if (scanf("%d%d", &linha, &coluna) != 2 ||
+            linha < 0 || linha >= LINHAS ||
+            coluna < 0 || coluna >= COLUNAS) {
             printf("Entrada inválida.\n");
-            // Limpa buffer lendo até o fim da linha
             int c;
             while ((c = getchar()) != '\n' && c != EOF);
             continue;
         }
+
         if (campo_aberto[linha][coluna]) {
             printf("Já está aberta!\n");
             continue;
         }
+
         if (campo_bombas[linha][coluna]) {
             printf("BOOM! Você perdeu.\n");
             imprimir(1);
             break;
         }
+
         abrir_casa(linha, coluna);
 
         aberto = 0;
-        for (int i = 0; i < LINHAS; i++)
-            for (int j = 0; j < COLUNAS; j++)
-                if (campo_aberto[i][j] && !campo_bombas[i][j])
+        for (int i = 0; i < LINHAS; i++) {
+            for (int j = 0; j < COLUNAS; j++) {
+                if (campo_aberto[i][j] && !campo_bombas[i][j]) {
                     aberto++;
+                }
+            }
+        }
+
         if (aberto == total) {
             printf("Parabéns! Você venceu.\n");
             imprimir(1);
@@ -61,12 +70,13 @@ int main() {
 }
 
 void inicializar() {
-    for (int i = 0; i < LINHAS; i++)
+    for (int i = 0; i < LINHAS; i++) {
         for (int j = 0; j < COLUNAS; j++) {
             campo_bombas[i][j] = 0;
             campo_aberto[i][j] = 0;
             campo_vizinhos[i][j] = 0;
         }
+    }
 }
 
 void sortear_bombas() {
@@ -86,50 +96,72 @@ void calcular_vizinhos() {
     deltaLinha e deltaColuna variam -1, 0, 1 para acessar as células vizinhas (adjacentes e diagonais).
     linhaVizinha e colunaVizinha indicam as coordenadas da célula vizinha.
     */
-    for (int i = 0; i < LINHAS; i++)
+    for (int i = 0; i < LINHAS; i++) {
         for (int j = 0; j < COLUNAS; j++) {
             int total = 0;
-            for (int deltaLinha = -1; deltaLinha <= 1; deltaLinha++)
+            for (int deltaLinha = -1; deltaLinha <= 1; deltaLinha++) {
                 for (int deltaColuna = -1; deltaColuna <= 1; deltaColuna++) {
                     int linhaVizinha = i + deltaLinha;
                     int colunaVizinha = j + deltaColuna;
-                    if (linhaVizinha >= 0 && linhaVizinha < LINHAS && colunaVizinha >= 0 && colunaVizinha < COLUNAS)
+                    if (linhaVizinha >= 0 && linhaVizinha < LINHAS &&
+                        colunaVizinha >= 0 && colunaVizinha < COLUNAS) {
                         total += campo_bombas[linhaVizinha][colunaVizinha];
+                    }
                 }
+            }
             campo_vizinhos[i][j] = total - campo_bombas[i][j];
         }
+    }
 }
 
 void imprimir(int revelar) {
     printf("   ");
-    for (int j = 0; j < COLUNAS; j++) printf("%2d", j);
+    for (int j = 0; j < COLUNAS; j++) {
+        printf("%2d", j);
+    }
     printf("\n");
+
     for (int i = 0; i < LINHAS; i++) {
         printf("%2d ", i);
         for (int j = 0; j < COLUNAS; j++) {
             if (!campo_aberto[i][j]) {
-                if (revelar && campo_bombas[i][j]) printf(" *");
-                else printf(" ■");
+                if (revelar && campo_bombas[i][j]) {
+                    printf(" *");
+                } else {
+                    printf(" ■");
+                }
             }
-            else if (campo_bombas[i][j])
+            else if (campo_bombas[i][j]) {
                 printf(" *");
-            else if (campo_vizinhos[i][j])
+            }
+            else if (campo_vizinhos[i][j]) {
                 printf(" %d", campo_vizinhos[i][j]);
-            else
+            }
+            else {
                 printf("  ");
+            }
         }
         printf("\n");
     }
 }
 
 void abrir_casa(int linha, int coluna) {
-    if (linha < 0 || linha >= LINHAS || coluna < 0 || coluna >= COLUNAS) return;
-    if (campo_aberto[linha][coluna]) return;
+    if (linha < 0 || linha >= LINHAS || coluna < 0 || coluna >= COLUNAS) {
+        return;
+    }
+    if (campo_aberto[linha][coluna]) {
+        return;
+    }
+
     campo_aberto[linha][coluna] = 1;
+
     if (campo_vizinhos[linha][coluna] == 0 && campo_bombas[linha][coluna] == 0) {
-        for (int deltaLinha = -1; deltaLinha <= 1; deltaLinha++)
-            for (int deltaColuna = -1; deltaColuna <= 1; deltaColuna++)
-                if (deltaLinha != 0 || deltaColuna != 0)
+        for (int deltaLinha = -1; deltaLinha <= 1; deltaLinha++) {
+            for (int deltaColuna = -1; deltaColuna <= 1; deltaColuna++) {
+                if (deltaLinha != 0 || deltaColuna != 0) {
                     abrir_casa(linha + deltaLinha, coluna + deltaColuna);
+                }
+            }
+        }
     }
 }
