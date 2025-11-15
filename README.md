@@ -9,14 +9,14 @@ Estrutura de Dados Utilizada
     Matriz de inteiros (por exemplo, campoBombas[MAX_LINHAS][MAX_COLUNAS]) para representar o tabuleiro.
     Cada informação importante tem sua própria matriz:
 
-    campoBombas: onde as bombas estão (1 = tem bomba, 0 = não tem)
-    campoAberto: se a casa já foi aberta pelo jogador (1 = aberta, 0 = fechada)
-    campoBandeira: se está marcada por uma bandeira (1 = tem bandeira, 0 = não)
-    campoVizinhos: quantas bombas existem nas casas vizinhas
+        campoBombas: onde as bombas estão (1 = tem bomba, 0 = não tem)
+        campoAberto: se a casa já foi aberta pelo jogador (1 = aberta, 0 = fechada)
+        campoBandeira: se está marcada por uma bandeira (1 = tem bandeira, 0 = não)
+        campoVizinhos: quantas bombas existem nas casas vizinhas
 
-Por que matriz?
-    Usar matriz é simples para acessar cada quadrado do tabuleiro (linha e coluna), facilita checar casas vizinhas e é rápida para trabalhar, porque o campo é sempre um retângulo de quadrados.
-    Todas as informações do estado do jogo (bomba, números, aberto/fechado, bandeira) podem ser separadas e manipuladas de forma clara.
+    Por que matriz?
+        Usar matriz é simples para acessar cada quadrado do tabuleiro (linha e coluna), facilita checar casas vizinhas e é rápida para trabalhar, porque o campo é sempre um retângulo de quadrados.
+        Todas as informações do estado do jogo (bomba, números, aberto/fechado, bandeira) podem ser separadas e manipuladas de forma clara.
 
 Preenchimento da Estrutura de Dados
     Posição das minas:
