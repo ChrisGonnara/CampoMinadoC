@@ -1,3 +1,6 @@
+//Christiano Gonçalves Araujo
+//Gabriel Felicio
+//Joao Francisco
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
